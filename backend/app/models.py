@@ -12,3 +12,8 @@ class Task(BaseModel):
     class Config:
         alias_generator = staticmethod(to_camel_case) # заменяет имена полей на результат функции
         validate_by_name = True # разрешает ипользовать оригинальные имена
+
+# Валидация данных для созданной задачи(путём наследования от Task)
+class CreateTask(Task):
+    pass
+
