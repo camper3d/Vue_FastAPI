@@ -5,15 +5,20 @@ from utils import to_camel_case
 class Task(BaseModel):
     id: int
     title: str
-    is_completed: bool
-
+    completed: bool
 
     # конфиг для преобразования полей
     class Config:
-        alias_generator = staticmethod(to_camel_case) # заменяет имена полей на результат функции
-        validate_by_name = True # разрешает ипользовать оригинальные имена
+        alias_generator = staticmethod(to_camel_case)
+        populate_by_name = True
+        from_attributes = True
 
 # Валидация данных для созданной задачи(путём наследования от Task)
-class CreateTask(Task):
-    pass
+class CreateTask(BaseModel):
+    title: str
+    completed: bool
+
+    class Config:
+        alias_generator = staticmethod(to_camel_case)
+        populate_by_name = True
 
