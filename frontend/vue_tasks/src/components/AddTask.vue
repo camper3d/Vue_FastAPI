@@ -1,16 +1,22 @@
 <template>
-  <form @submit.prevent="submitTask">
+  <form @submit.prevent="submitTask" class="flex flex-col space-y-4 bg-white p-6 rounded-xl shadow">
     <input
       v-model="title"
       type="text"
       placeholder="Название задачи"
       required
+      class="border p-2 rounded w-full"
     />
-    <label>
-      <input type="checkbox" v-model="completed" />
-      Выполнено
+    <label class="inline-flex items-center space-x-2">
+      <input type="checkbox" v-model="completed" class="accent-blue-500" />
+      <span>Выполнено</span>
     </label>
-    <button type="submit">Добавить задачу</button>
+    <button
+      type="submit"
+      class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+    >
+      Добавить задачу
+    </button>
   </form>
 </template>
 
@@ -34,14 +40,12 @@ async function submitTask() {
     if (!res.ok) throw new Error('Ошибка при добавлении задачи')
 
     const newTask = await res.json()
-    // Очистить форму
     title.value = ''
     completed.value = false
-
-    alert('Задача добавлена!')
-    emit('task-added', newTask) // уведомляем родителя, что задача добавлена
+    emit('task-added', newTask)
   } catch (error) {
     alert(error.message)
   }
 }
 </script>
+

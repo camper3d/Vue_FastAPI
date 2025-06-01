@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <AddTask @task-added="fetchTasks" />
-    <TaskList
-      :tasks="tasks"
-      @task-deleted="removeTask"
-      @task-updated="updateTask"
-    />
+  <div class="min-h-screen bg-gray-100 p-4 md:p-8">
+    <div class="max-w-2xl mx-auto space-y-6">
+      <AddTask @task-added="fetchTasks" />
+      <TaskList
+        :tasks="tasks"
+        @task-deleted="removeTask"
+        @task-updated="updateTask"
+      />
+    </div>
   </div>
 </template>
 

@@ -1,10 +1,24 @@
 <template>
-  <div class="task-list">
-    <h2>Список задач</h2>
-    <ul>
-      <li v-for="task in tasks" :key="task.id">
-        {{ task.title }} - <strong>{{ task.completed ? 'Выполнено' : 'В процессе' }}</strong>
-        <button @click="deleteTask(task.id)">Удалить</button>
+  <div class="bg-white p-6 rounded-xl shadow space-y-4">
+    <h2 class="text-xl font-semibold">Список задач</h2>
+    <ul class="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+      <li
+        v-for="task in tasks"
+        :key="task.id"
+        class="flex justify-between items-center border p-4 rounded hover:shadow transition bg-gray-50"
+      >
+        <div>
+          <p class="font-medium">{{ task.title }}</p>
+          <p class="text-sm text-gray-600">
+            {{ task.completed ? '✅ Выполнено' : '⌛ В процессе' }}
+          </p>
+        </div>
+        <button
+          @click="deleteTask(task.id)"
+          class="text-red-600 hover:text-red-800 font-semibold"
+        >
+          Удалить
+        </button>
       </li>
     </ul>
   </div>
@@ -24,7 +38,7 @@ const deleteTask = async (id) => {
     })
 
     if (res.ok) {
-      emit('task-deleted', id) // уведомляем родителя
+      emit('task-deleted', id)
     } else {
       const err = await res.json()
       console.error('Ошибка при удалении:', err)
@@ -34,14 +48,3 @@ const deleteTask = async (id) => {
   }
 }
 </script>
-
-<style scoped>
-button {
-  margin-left: 1rem;
-  color: white;
-  background-color: red;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  cursor: pointer;
-}
-</style>
